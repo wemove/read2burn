@@ -11,17 +11,17 @@ Please have a look at https://www.read2burn.com/
 Dependencies
 ============
 
-nodejs, git
+nodejs, npm, git
 
 
 Install
 =======
 
-Install the applocation.
+Install the application.
 
     git clone https://github.com/joachimmueller/read2burn.git
     
-Load the required modules.    
+Load the required modules.
     
     npm install
     
