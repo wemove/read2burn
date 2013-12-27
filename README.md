@@ -27,6 +27,6 @@ Load the required modules.
     
 Start the application.    
     
-    server app.js
+    node app.js
     
     
