@@ -5,7 +5,7 @@ A simple application for more secure password transportation. It encrypts an ent
 
 The link can be sent by email and the email can be archived without compromising the secret entry (of cource only if it has been accessed by the receipient once).
 
-Please have a look at https://www.read2burn.co/
+Please have a look at https://www.read2burn.com/
 
 
 Dependencies
