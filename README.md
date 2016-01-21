@@ -1,3 +1,5 @@
+![](https://travis-ci.org/joachimmueller/read2burn.svg?branch=master)
+
 read2burn
 =========
 
