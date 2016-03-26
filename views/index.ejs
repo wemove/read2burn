@@ -57,16 +57,23 @@
 	  				<button type="submit"><%= __('Create new link') %></button>
 				<%} else {%>
 				<% if (found) { %>
-				<label for="regularTextarea"><%= __('The entry:') %></label>
-	  			<textarea style="width:95%;margin-bottom:0px" id="result" name="result" readonly><% if (secret) { %><%= secret %><%}%></textarea>
-				<p><em><%= __('Do not reload! Your entry will be lost.') %></em></p>
+                  <% if (secret) { %>
+                  <label for="regularTextarea"><%= __('The entry:') %></label>
+                  <textarea style="width:95%;margin-bottom:0px" id="result" name="result" readonly><% if (secret) { %><%= secret %><%}%></textarea>
+                  <p><em><%= __('Do not reload! Your entry has been deleted already.') %></em></p>
+                  <%} else {%>
+                  <p><%= __('You can access the secret message now. Please note that the message will be deleted!') %></p>
+                  <input type="hidden" name="key" value="<%= key %>"/>
+                  <input type="hidden" name="show" value="true"/>
+                  <button type="submit"><%= __('Show secret') %></button>
+                  <%}%>
 				<%} else {%>
 				<label for="regularTextarea"><%= __('Text (password, secret, etc.):') %></label>
 	  			<textarea style="width:95%;margin-bottom:0px" id="secret" name="secret"><% if (secret) { %><%= secret %><%}%></textarea>
 				<%}%>
-				<% if (found) { %>
+				<% if (found && secret) { %>
 	  			<button type="submit"><%= __('Create new link') %></button>
-				<%} else {%>
+				<%} else if (!found) {%>
 	  			<button type="submit"><%= __('Create link') %></button>
 				<%}%>
 				<%}%>

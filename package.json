@@ -6,11 +6,10 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.0.3",
-    "ejs": "0.8.5",
-	"chaos": "0.2.0",
-	"dirty": "0.9.6",
-	"i18n": "0.4.1"
+    "express": "^3.0.3",
+    "ejs": "^0.8.5",
+	"dirty": "^0.9.6",
+	"i18n": "^0.4.1"
   },
   "description": "A tool for communicating secret information.",
   "main": "app.js",

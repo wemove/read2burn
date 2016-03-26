@@ -4,7 +4,8 @@
  */
 
 var crypto = require('crypto');
-var db = require('chaos')('data');
+
+var db = require('./chaos')('data');
 
 
 
@@ -13,7 +14,7 @@ exports.index = function(req, res){
 	var CIPHER_ALGORITHM = 'aes256'
 	var ERR_NO_SUCH_ENTRY = 'ERR_NO_SUCH_ENTRY'
 	var FILE_KEY_LENGTH = 8
-	var PASSWD_KEY_LENGTH = 5
+	var PASSWD_KEY_LENGTH = 12
 
 	var url = "";
 	var encrypted = "";
@@ -26,26 +27,28 @@ exports.index = function(req, res){
 		var cipher = crypto.createCipher(CIPHER_ALGORITHM, cipherSecret);  
 		encrypted = cipher.update(secret, 'utf8', 'hex') + cipher.final('hex');
 		url = 'https://' + req.get('host') + "/?key=" + key+passwd;
-//		url = "https://www.read2burn.com/?key=" + key+passwd;
 		db.hset(key.substr(0, 3), key, {encrypted: encrypted});
   		res.render('index', { url: url, secret: secret, error: undefined, found: false });
-	} else if (req.query.key) {
-		var p = req.query.key;
+	} else if (req.query.key || req.body.key) {
+        var p = req.query.key;
+        if (!p) p = req.body.key;
 		var key = p.substr(0,FILE_KEY_LENGTH);
-		console.log("key: " + key);
 		var passwd = p.substr(FILE_KEY_LENGTH,PASSWD_KEY_LENGTH);
-		console.log("passwd: " + passwd);
 		db.hget(key.substr(0, 3), key, function(err, dbValue) {
 			if (err) {
 				res.render('index', { url: url, secret: decrypted , error: ERR_NO_SUCH_ENTRY, found: false });
 			} else {
 				if (dbValue) {
-					var encrypted = dbValue.encrypted;
-					var decipherSecret =  new Buffer( passwd ).toString( 'binary' );
-					var decipher = crypto.createDecipher(CIPHER_ALGORITHM, decipherSecret);
-					var decrypted = decipher.update(encrypted, 'hex', 'utf8') + decipher.final('utf8');
-					db.hdel(key.substr(0, 3), key);
-					res.render('index', { url: url, secret: decrypted, error: undefined, found: true });
+					if (req.body.show) {
+                      var encrypted = dbValue.encrypted;
+                      var decipherSecret =  new Buffer( passwd ).toString( 'binary' );
+                      var decipher = crypto.createDecipher(CIPHER_ALGORITHM, decipherSecret);
+                      var decrypted = decipher.update(encrypted, 'hex', 'utf8') + decipher.final('utf8');
+                      db.hdel(key.substr(0, 3), key);
+                      res.render('index', { url: url, secret: decrypted, error: undefined, found: true });
+                    } else {
+                      res.render('index', { url: url, secret: false, error: undefined, found: true, key: p});
+                    }
 				} else {
 					res.render('index', { url: url, secret: decrypted , error: ERR_NO_SUCH_ENTRY, found: false});
 				}

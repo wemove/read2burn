@@ -17,5 +17,7 @@
 	"Who made it?": "Wer hat's gemacht?",
 	"This service is provided by": "Dieser Dienst wird bereitgestellt von",
 	"The entry:": "Der Eintrag:",
-	"Do not reload! Your entry will be lost.": "Bitte die Seite nicht neu laden! Der Eintrag geht sonst verloren."
+	"Do not reload! Your entry has been deleted already.": "Bitte die Seite nicht neu laden! Der Eintrag wurde gelöscht.",
+	"You can access the secret message now. Please note that the message will be deleted!": "Sie können auf nun auf den Eintrag zugreifen. Bitte beachten Sie, dass der Eintrag dadurch gelöscht wird.",
+	"Show secret": "Show secret"
 }
