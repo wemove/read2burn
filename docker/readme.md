@@ -9,5 +9,5 @@ docker build -t wemove/read2burn:0.1 .
 Run the docker
 
 ```
-docker run -d -p 3300:3300 --volume=/opt/read2burn/data:/app/data --name read2burn wemove/read2burn:0.1
+docker run --restart=always -d -p 3300:3300 --volume=/opt/read2burn/data:/app/data --name read2burn wemove/read2burn:0.1
 ```
