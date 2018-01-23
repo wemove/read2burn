@@ -1,15 +1,18 @@
 {
   "name": "read2burn",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "node app"
   },
   "dependencies": {
-    "express": "^3.0.3",
-    "ejs": "^0.8.5",
-	"dirty": "^0.9.6",
-	"i18n": "^0.4.1"
+    "express": "^4.16.2",
+    "ejs": "^2.5.7",
+	"dirty": "^1.1.0",
+  "i18n": "^0.8.3",
+  "body-parser": "^1.18",
+  "umzug": "^2.1.0",
+  "bluebird": "^3.5.1"
   },
   "description": "A tool for communicating secret information.",
   "main": "app.js",
