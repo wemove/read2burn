@@ -11,7 +11,7 @@ var express = require('express')
   , bodyParser = require('body-parser')
   , Umzug = require('umzug');
 
-var umzug = new Umzug({logging: false});
+var umzug = new Umzug();
 var app = express();
 var i18n = require("i18n");
 
@@ -36,7 +36,6 @@ app.post('/', routes.index);
 console.log( "umzug:" + umzug.storage )
 
 umzug.up().then(function (migrations) {
-  console.log( "migrations:" + migrations )
   // "migrations" will be an Array with the names of the
   // executed migrations.
 });

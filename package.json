@@ -12,7 +12,10 @@
   "i18n": "^0.8.3",
   "body-parser": "^1.18",
   "umzug": "^2.1.0",
-  "bluebird": "^3.5.1"
+  "bluebird": "^3.5.1",
+  "mv": "^2.1.1",
+  "extfs": "^0.0.7",
+  "rimraf": "^2.6.2"
   },
   "description": "A tool for communicating secret information.",
   "main": "app.js",

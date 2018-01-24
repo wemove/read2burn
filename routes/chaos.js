@@ -119,7 +119,7 @@ Chaos.prototype.__createDB = function(dir) {
 }
 
 Chaos.prototype.__hash = function(key) {
-  return crypto.createHash(this.__hashAlgo).update(key.toString()).digest(this.__hashEnc)
+  return crypto.createHash(this.__hashAlgo).update(key.toString()).digest(this.__hashEnc).substr(0, 3);
 }
 
 Chaos.prototype.__queue = function(a, b) {
