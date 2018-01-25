@@ -15,7 +15,8 @@
   "bluebird": "^3.5.1",
   "mv": "^2.1.1",
   "extfs": "^0.0.7",
-  "rimraf": "^2.6.2"
+  "rimraf": "^2.6.2",
+  "node-cron": "^1.2.1"
   },
   "description": "A tool for communicating secret information.",
   "main": "app.js",
