@@ -29,7 +29,9 @@ exports.index = function (req, res) {
 		var cipherSecret = new Buffer(passwd).toString('binary');
 		var cipher = crypto.createCipher(CIPHER_ALGORITHM, cipherSecret);
 		encrypted = cipher.update(secret, 'utf8', 'hex') + cipher.final('hex');
-		url = req.protocol + '://' + req.get('host') + "/?key=" + key + passwd;
+		var relPath = "";
+		if (process.env.REL_PATH) relPath=process.env.REL_PATH;
+		url = req.protocol + '://' + req.get('host') + relPath + "/?key=" + key + passwd;
 		db.hset(key.substr(0, 3), key, { encrypted: encrypted });
 		res.render('index', { url: url, secret: secret, error: undefined, found: false });
 	} else if (req.query.key || req.body.key) {
