@@ -26,6 +26,7 @@ app.set('view engine', 'ejs');
 app.use(express.Router());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.enable('trust proxy');
 
 i18n.configure({
   locales: ['en', 'de'],
