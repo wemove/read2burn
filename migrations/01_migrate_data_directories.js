@@ -10,7 +10,7 @@ const dir = path.resolve(__dirname, '../data');
 module.exports = {
   up: function () {
     return new Bluebird(function (resolve, reject) {
-      console.log("MIGRATION 01_migrate_data_directories.js: Mirating old long data directories to 3 character directories.");
+      console.log("MIGRATION 01_migrate_data_directories.js: Migrating old long data directories to 3 character directories.");
       // Describe how to achieve the task.
       // rename data directories to the 3 characters
 
