@@ -8,3 +8,5 @@ services:
       - 127.0.0.1:3300:3300
     volumes:
       - ./data:/app/data
+    environment:
+#      - REL_PATH=/r2b
