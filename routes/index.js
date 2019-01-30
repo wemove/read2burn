@@ -25,6 +25,8 @@ exports.index = function (req, res) {
 		var secret = req.body.secret;
 		var algorithm = 'aes256'; // or any other algorithm supported by OpenSSL
 		var key = uid(FILE_KEY_LENGTH);
+		// TODO: Look for key in database
+		// if exists, create another key
 		var passwd = uid(PASSWD_KEY_LENGTH);
 		var cipherSecret = new Buffer(passwd).toString('binary');
 		var cipher = crypto.createCipher(CIPHER_ALGORITHM, cipherSecret);
