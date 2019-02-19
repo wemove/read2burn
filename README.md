@@ -1,4 +1,4 @@
-![](https://travis-ci.org/joachimmueller/read2burn.svg?branch=master)
+![](https://travis-ci.org/wemove/read2burn.svg?branch=master)
 
 read2burn
 =========
@@ -21,7 +21,7 @@ Install
 
 Install the application.
 
-    git clone https://github.com/joachimmueller/read2burn.git
+    git clone https://github.com/wemove/read2burn.git
     
 Load the required modules.
     
