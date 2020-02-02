@@ -1,22 +1,19 @@
 {
   "name": "read2burn",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
-  "scripts": {
-    "start": "node app"
-  },
   "dependencies": {
-    "express": "^4.16.2",
-    "ejs": "^2.5.7",
-	"dirty": "^1.1.0",
-  "i18n": "^0.8.3",
-  "body-parser": "^1.18",
-  "umzug": "^2.1.0",
-  "bluebird": "^3.5.1",
-  "mv": "^2.1.1",
-  "extfs": "^0.0.7",
-  "rimraf": "^2.6.2",
-  "node-cron": "^1.2.1"
+    "express": "^4.17.1",
+    "ejs": "^3.0.1",
+    "dirty": "^1.1.0",
+    "i18n": "^0.8.5",
+    "body-parser": "^1.19",
+    "umzug": "^2.2.0",
+    "bluebird": "^3.7.2",
+    "mv": "^2.1.1",
+    "extfs": "^0.0.7",
+    "rimraf": "^3.0.1",
+    "node-cron": "^2.0.3"
   },
   "description": "A tool for communicating secret information.",
   "main": "app.js",
