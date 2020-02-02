@@ -1,6 +1,6 @@
 {
   "name": "read2burn",
-  "version": "0.0.3",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "express": "^4.17.1",
