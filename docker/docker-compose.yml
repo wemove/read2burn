@@ -1,7 +1,7 @@
 version: '3'
 services:
   ibus:
-    image: docker-registry.wemove.com/wemove/read2burn:0.2
+    image: docker-registry.wemove.com/wemove/read2burn:0.3.0
     container_name: read2burn
     restart: unless-stopped
     ports:
