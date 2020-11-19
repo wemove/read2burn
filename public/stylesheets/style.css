@@ -1,3 +1,45 @@
 textarea {
   height: 150px;
 }
+
+.title {
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+
+.title-number {
+  font-size:48px;
+  margin: 4px;
+}
+
+.subtitle {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.jqEasyCounterMsg {
+  font-family: Poppins-Regular, sans-serif !important;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+@font-face {
+  font-family: 'Poppins-Regular';
+  src: url('../fonts/Poppins-Regular.eot');
+  src: url('../fonts/Poppins-Regular.eot?#iefix') format("embedded-opentype"),
+  url('../fonts/Poppins-Regular.woff') format("woff"),
+  url('../fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-Medium';
+  src: url('../fonts/Poppins-Medium.eot');
+  src: url('../fonts/Poppins-Medium.eot?#iefix') format("embedded-opentype"),
+  url('../fonts/Poppins-Medium.woff') format("woff"),
+  url('../fonts/Poppins-Medium.ttf') format('truetype');
+}

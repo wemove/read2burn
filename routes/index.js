@@ -3,64 +3,58 @@
  * GET home page.
  */
 
-var crypto = require('crypto');
-var fs = require('extfs');
-var rimraf = require('rimraf');
-var path = require('path');
-
-
-var db = require('./chaos')('data');
-
+const Datastore = require('nedb');
+const crypto = require('crypto');
 
 exports.index = function (req, res) {
-
 	try {
+		const nedb = new Datastore({filename: 'data/read2burn.db', autoload: true});
 
-		var CIPHER_ALGORITHM = 'aes256'
-		var ERR_NO_SUCH_ENTRY = 'ERR_NO_SUCH_ENTRY'
-		var FILE_KEY_LENGTH = 8
-		var PASSWD_KEY_LENGTH = 12
+		const CIPHER_ALGORITHM = 'aes256'
+		const ERR_NO_SUCH_ENTRY = 'ERR_NO_SUCH_ENTRY'
+		const FILE_KEY_LENGTH = 8
+		const PASSWORD_KEY_LENGTH = 12
 
-		var url = "";
-		var encrypted = "";
+		let url = "";
+		let encrypted = "";
+
 		if (req.body.secret) {
-			var secret = req.body.secret;
-			var algorithm = 'aes256'; // or any other algorithm supported by OpenSSL
-			var key = uid(FILE_KEY_LENGTH);
+			const secret = req.body.secret;
+			const key = uid(FILE_KEY_LENGTH);
 			// TODO: Look for key in database
 			// if exists, create another key
-			var passwd = uid(PASSWD_KEY_LENGTH);
-			var cipherSecret = new Buffer(passwd).toString('binary');
-			var cipher = crypto.createCipher(CIPHER_ALGORITHM, cipherSecret);
+			const password = uid(PASSWORD_KEY_LENGTH);
+			const timestamp = new Date().getTime();
+			const cipherSecret = new Buffer(password).toString('binary');
+			const cipher = crypto.createCipher(CIPHER_ALGORITHM, cipherSecret);
 			encrypted = cipher.update(secret, 'utf8', 'hex') + cipher.final('hex');
-			var relPath = "";
-			if (process.env.REL_PATH) relPath=process.env.REL_PATH;
-			url = req.protocol + '://' + req.get('host') + relPath + "/?key=" + key + passwd;
-			db.hset(key.substr(0, 3), key, { encrypted: encrypted });
-			res.render('index', { url: url, secret: secret, error: undefined, found: false });
+			const entry = { key, timestamp, encrypted }
+			nedb.insert(entry, function(err, doc) {
+				url = `${req.protocol}://${req.get('host')}/?key=${key + password}`;
+				res.render('index', { url: url, secret: secret, error: undefined, found: false });
+				console.log('Inserted', doc.key, 'with ID', doc._id);
+			});
 		} else if (req.query.key || req.body.key) {
-			var p = req.query.key;
+			let p = req.query.key;
 			if (!p) p = req.body.key;
-			var key = p.substr(0, FILE_KEY_LENGTH);
-			var passwd = p.substr(FILE_KEY_LENGTH, PASSWD_KEY_LENGTH);
-			db.hget(key.substr(0, 3), key, function (err, dbValue) {
-				if (err) {
-					res.render('index', { url: url, secret: decrypted, error: ERR_NO_SUCH_ENTRY, found: false });
-				} else {
-					if (dbValue) {
-						if (req.body.show) {
-							var encrypted = dbValue.encrypted;
-							var decipherSecret = new Buffer(passwd).toString('binary');
-							var decipher = crypto.createDecipher(CIPHER_ALGORITHM, decipherSecret);
-							var decrypted = decipher.update(encrypted, 'hex', 'utf8') + decipher.final('utf8');
-							db.hdel(key.substr(0, 3), key);
-							res.render('index', { url: url, secret: decrypted, error: undefined, found: true });
-						} else {
-							res.render('index', { url: url, secret: false, error: undefined, found: true, key: p });
-						}
+			const key = p.substr(0, FILE_KEY_LENGTH);
+			const password = p.substr(FILE_KEY_LENGTH, PASSWORD_KEY_LENGTH);
+			nedb.findOne({ key }, function(err, doc) {
+				try {
+					if (doc.encrypted && req.body.show) {
+						const encrypted = doc.encrypted;
+						const decipherSecret = new Buffer(password).toString('binary');
+						const decipher = crypto.createDecipher(CIPHER_ALGORITHM, decipherSecret);
+						const decrypted = decipher.update(encrypted, 'hex', 'utf8') + decipher.final('utf8');
+						nedb.remove({ key }, function(err, numDeleted) {
+							nedb.persistence.compactDatafile();
+						});
+						res.render('index', { url: url, secret: decrypted, error: undefined, found: true });
 					} else {
-						res.render('index', { url: url, secret: decrypted, error: ERR_NO_SUCH_ENTRY, found: false });
+						res.render('index', { url: url, secret: false, error: undefined, found: true, key: p });
 					}
+				} catch (e) {
+					res.render('index', { url: url, secret: false, error: ERR_NO_SUCH_ENTRY, found: false });
 				}
 			});
 		} else {
