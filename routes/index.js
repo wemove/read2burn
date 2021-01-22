@@ -8,8 +8,7 @@ const crypto = require('crypto');
 
 exports.index = function (req, res) {
 	try {
-		const nedb = new Datastore({filename: 'data/read2burn.db', autoload: true});
-
+		const nedb = req.app.get('nedb');
 		const CIPHER_ALGORITHM = 'aes256'
 		const ERR_NO_SUCH_ENTRY = 'ERR_NO_SUCH_ENTRY'
 		const FILE_KEY_LENGTH = 8

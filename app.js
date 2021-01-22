@@ -24,6 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.enable('trust proxy');
 
+const nedb = new Datastore({filename: 'data/read2burn.db', autoload: true});
+
+app.set('nedb', nedb);
+
 i18n.configure({
     locales: ['en', 'de'],
     directory: __dirname + '/locales',
@@ -46,7 +50,6 @@ http.createServer(app).listen(app.get('port'), function () {
 // schedule regular cleanup
 cron.schedule('12 1 * * *', function () {
     console.log("Cleanup proceeding...")
-    const nedb = new Datastore({filename: 'data/read2burn.db', autoload: true});
     const expireTime = new Date().getTime() - 8640000000;
     nedb.remove({timestamp: {$lte: expireTime}}, { multi: true }, function(err, numDeleted) {
         console.log('Deleted', numDeleted, 'entries');
