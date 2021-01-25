@@ -26,7 +26,7 @@ app.enable('trust proxy');
 
 const nedb = new Datastore({filename: 'data/read2burn.db', autoload: true});
 
-app.set('nedb', nedb);
+module.exports.nedb = nedb;
 
 i18n.configure({
     locales: ['en', 'de'],

@@ -3,15 +3,16 @@
 const path = require('path')
     , fs = require('extfs')
     , rimraf = require('rimraf')
-    , Datastore = require('nedb')
     , Bluebird = require('bluebird');
+
+const app = require('../app');
 
 
 module.exports = {
     up : function (){
         return new Bluebird(function (resolve, reject) {
             console.log('MIGRATION 02_migrate2nedb.js: start migration to nedb.');
-            const nedb = new Datastore({filename: 'data/read2burn.db', autoload: true});
+            const nedb = app.nedb;
             const dbPath = path.resolve(__dirname, '../data');
             fs.readdirSync(dbPath).forEach(item => {
                 const dirPath = path.resolve(dbPath, item);

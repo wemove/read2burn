@@ -3,12 +3,12 @@
  * GET home page.
  */
 
-const Datastore = require('nedb');
 const crypto = require('crypto');
+const app = require('../app');
 
 exports.index = function (req, res) {
 	try {
-		const nedb = req.app.get('nedb');
+		const nedb = app.nedb;
 		const CIPHER_ALGORITHM = 'aes256'
 		const ERR_NO_SUCH_ENTRY = 'ERR_NO_SUCH_ENTRY'
 		const FILE_KEY_LENGTH = 8
