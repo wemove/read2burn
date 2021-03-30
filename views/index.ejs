@@ -5,133 +5,144 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="<%= getLocale() %>"> <!--<![endif]-->
 <head>
 
-	<!-- Basic Page Needs
+    <!-- Basic Page Needs
   ================================================== -->
-	<meta charset="utf-8">
-	<title>read2burn</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
+    <meta charset="utf-8">
+    <title>read2burn</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	<!-- Mobile Specific Metas
+    <!-- Mobile Specific Metas
   ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<!-- CSS
+    <!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="stylesheets/base.css">
-	<link rel="stylesheet" href="stylesheets/skeleton.css">
-	<link rel="stylesheet" href="stylesheets/layout.css">
-	<link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/base.css">
+    <link rel="stylesheet" href="stylesheets/skeleton.css">
+    <link rel="stylesheet" href="stylesheets/layout.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
 
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script src="javascripts/jquery.jqEasyCharCounter.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="javascripts/jquery.jqEasyCharCounter.min.js"></script>
 
 </head>
 <body>
 
-	
 
 
-	<!-- Primary Page Layout
-	================================================== -->
 
-	<!-- Delete everything in this .container and get started on your own site! -->
+<!-- Primary Page Layout
+================================================== -->
 
-	<div class="container">
-		<div class="sixteen columns">
-			<h1 class="title">READ<span class="title-number">2</span>BURN</h1>
-			<div class="subtitle">Transfer Secrets Securely</div>
-		</div>
-		<div class="sixteen columns">
-				<form action="./" method="post">
-				<% if (error=='ERR_NO_SUCH_ENTRY') { %>
-					<p><em><%= __('No entry found!') %></em></p>
-					<p><em><strong><%= __('Either there is no such key or your entry has already been accessed by another one.') %></strong></em></p>
-	  				<button type="submit"><%= __('Create new link') %></button>
-				<%} else {%>
-				<% if (found) { %>
-                  <% if (secret) { %>
-                  <label for="regularTextarea"><%= __('The entry:') %></label>
-                  <textarea style="width:95%;margin-bottom:0px" id="result" name="result" readonly><% if (secret) { %><%= secret %><%}%></textarea>
-                  <p><em><%= __('Do not reload! Your entry has been deleted already.') %></em></p>
-                  <%} else {%>
-                  <p><%= __('You can access the secret message now. Please note that the message will be deleted!') %></p>
-                  <input type="hidden" name="key" value="<%= key %>"/>
-                  <input type="hidden" name="show" value="true"/>
-                  <button type="submit"><%= __('Show secret') %></button>
-                  <%}%>
-				<%} else {%>
-				<label for="regularTextarea"><%= __('Text (password, secret, etc.):') %></label>
-	  			<textarea style="width:95%;margin-bottom:0px" id="secret" name="secret"><% if (secret) { %><%= secret %><%}%></textarea>
-				<%}%>
-				<% if (found && secret) { %>
-	  			<button type="submit"><%= __('Create new link') %></button>
-				<%} else if (!found) {%>
-	  			<button type="submit"><%= __('Create link') %></button>
-				<%}%>
-				<%}%>
-	  			</form>
-				<% if(url) { %>
-				<label><%= __('Text available only once by this URL:') %></label>
-	  			<input  style="width:95%" type="text" id="url" name="url" value="<%= url %>"></input>
-	  			<script type="text/javascript">var t=document.getElementById('url');t.focus();t.select()</script>
-				<% } %>
-		</div>
-		<div class="sixteen columns">
-			<h5 id="faq" style="margin-top:50px;margin-bottom:20px;text-decoration:underline;"><a href="#">INFO</a></h5>
-		</div>
-		<div id="faqContainer" style="display:none">
-			<div class="sixteen columns"><h6><%= __('How does it work?') %></h6><p><%= __('Paste your secret in the text box. Create a link to your secret, the secret will be encrypted. Send the link to the recipient. The recipient can access the secret within 100 days by this link. After the link has been accessed, the encrypted secret will be deleted. Following accesses will lead to an error message.') %></p></div>
-			<div class="sixteen columns"><h6><%= __('What is it all about?') %></h6><p><%= __('Sending secrets by email has some problems. First, the email is sent in clear text, everybody who can read the transmission can read the secret, second the email is stored in the email account of the sender and the recipient! read2burn.com enables a secure transmission by storing the secret encrypted and creating an access url that is valid only once. Therefore a manipulation by others will be recognized.') %></p></div>
-			<div class="sixteen columns"><h6><%= __('Hints') %></h6><p><%= __('Never encrypt login and password together.') %><br/><%= __('Send login and password always separately.') %></p></div>
-			<div class="sixteen columns"><h6><%= __('Your data is safe!') %></h6><p><%= __('All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log, no database, no way to decrypt the secret without the URL.') %></p></div>
-			<div class="sixteen columns"><h6><%= __('Who made it?') %></h6><p><%= __('This service is provided by') %> <a href="http://www.wemove.com/">www.wemove.com</a>.</p></div>
-		</div>
-	</div><!-- container -->
+<!-- Delete everything in this .container and get started on your own site! -->
 
-	<script type="text/javascript">
-		$('#faq').click(function() {
-  			$('#faqContainer').slideToggle('fast', function() {
-	    		// Animation complete.
-		  	});
-		});
-		$('#secret').jqEasyCounter({
-    'maxChars': 4000,
-    'maxCharsWarning': 3990,
-    'msgFontSize': '12px',
-    'msgFontColor': '#000',
-    'msgFontFamily': 'Courier',
-    'msgTextAlign': 'right',
-    'msgWarningColor': '#F00',
-    'msgAppendMethod': 'insertAfter'              
-});
+<div class="container">
+    <div class="sixteen columns">
+        <h1 class="title">READ<span class="title-number">2</span>BURN</h1>
+        <div class="subtitle">Transfer Secrets Securely</div>
+    </div>
+    <div class="sixteen columns">
+        <form action="./" method="post">
+            <% if (error=='ERR_NO_SUCH_ENTRY') { %>
+                <p><em><%= __('No entry found!') %></em></p>
+                <p><em><strong><%= __('Either there is no such key or your entry has already been accessed by another one.') %></strong></em></p>
+                <button type="submit"><%= __('Create new link') %></button>
+            <%} else {%>
+                <% if (found) { %>
+                    <% if (secret) { %>
+                        <label for="regularTextarea"><%= __('The entry:') %></label>
+                        <textarea style="width:95%;margin-bottom:0px" id="result" name="result" readonly><% if (secret) { %><%= secret %><%}%></textarea>
+                        <p><em><%= __('Do not reload! Your entry has been deleted already.') %></em></p>
+                    <%} else {%>
+                        <p><%= __('You can access the secret message now. Please note that the message will be deleted!') %></p>
+                        <input type="hidden" name="key" value="<%= key %>"/>
+                        <input type="hidden" name="show" value="true"/>
+                        <button type="submit"><%= __('Show secret') %></button>
+                    <%}%>
+                <%} else {%>
+                    <label for="regularTextarea"><%= __('Text (password, secret, etc.):') %></label>
+                    <textarea style="width:95%;margin-bottom:0px" id="secret" name="secret"><% if (secret) { %><%= secret %><%}%></textarea>
+                <%}%>
+                <% if (found && secret) { %>
+                    <button type="submit"><%= __('Create new link') %></button>
+                <%} else if (!found) {%>
+                    <button type="submit"><%= __('Create link') %></button>
+                <%}%>
+            <%}%>
+        </form>
+        <% if(url) { %>
+            <label><%= __('Text available only once by this URL:') %></label>
+            <input style="width:95%" type="text" id="url" name="url" value="<%= url %>"/>
+            <button type="submit" id="copy"><%= __('copy') %></button>
+            <script type="text/javascript">
+                const t = document.getElementById('url');
+                t.focus();
+                t.select();
+            </script>
+        <% } %>
+    </div>
+    <div class="sixteen columns">
+        <h5 id="faq" style="margin-top:50px;margin-bottom:20px;text-decoration:underline;"><a href="#">INFO</a></h5>
+    </div>
+    <div id="faqContainer" style="display:none">
+        <div class="sixteen columns"><h6><%= __('How does it work?') %></h6><p><%= __('Paste your secret in the text box. Create a link to your secret, the secret will be encrypted. Send the link to the recipient. The recipient can access the secret within 100 days by this link. After the link has been accessed, the encrypted secret will be deleted. Following accesses will lead to an error message.') %></p></div>
+        <div class="sixteen columns"><h6><%= __('What is it all about?') %></h6><p><%= __('Sending secrets by email has some problems. First, the email is sent in clear text, everybody who can read the transmission can read the secret, second the email is stored in the email account of the sender and the recipient! read2burn.com enables a secure transmission by storing the secret encrypted and creating an access url that is valid only once. Therefore a manipulation by others will be recognized.') %></p></div>
+        <div class="sixteen columns"><h6><%= __('Hints') %></h6><p><%= __('Never encrypt login and password together.') %><br/><%= __('Send login and password always separately.') %></p></div>
+        <div class="sixteen columns"><h6><%= __('Your data is safe!') %></h6><p><%= __('All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log, no database, no way to decrypt the secret without the URL.') %></p></div>
+        <div class="sixteen columns"><h6><%= __('Who made it?') %></h6><p><%= __('This service is provided by') %> <a href="http://www.wemove.com/">www.wemove.com</a>.</p></div>
+    </div>
+</div><!-- container -->
 
-	</script>
+<script type="text/javascript">
+    $('#faq').click(function() {
+        $('#faqContainer').slideToggle('fast', function() {
+            // Animation complete.
+        });
+    });
+    $('#copy').click(function () {
+        const url = document.getElementById('url');
+        url.select();
+        url.setSelectionRange(0, 99999); // mobile devices
+        document.execCommand('copy');
+    });
+    $('#secret').jqEasyCounter({
+        'maxChars': 4000,
+        'maxCharsWarning': 3990,
+        'msgFontSize': '12px',
+        'msgFontColor': '#000',
+        'msgFontFamily': 'Courier',
+        'msgTextAlign': 'right',
+        'msgWarningColor': '#F00',
+        'msgAppendMethod': 'insertAfter'
+    });
+
+</script>
 
 <!-- End Document
 ================================================== -->
 
 <!-- Piwik -->
 <script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.wemove.com/" : "http://piwik.wemove.com/");
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.wemove.com/" : "http://piwik.wemove.com/");
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
 </script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
+    try {
+        var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+        piwikTracker.trackPageView();
+        piwikTracker.enableLinkTracking();
+    } catch( err ) {}
 </script><noscript><p><img src="https://piwik.wemove.com/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
 <!-- End Piwik Tracking Code -->
 

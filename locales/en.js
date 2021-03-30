@@ -3,5 +3,6 @@
 	"label_secret": "Text (Passwort, Geheimnis, etc.) eingeben",
 	"Der Eintrag lautet": "Der Eintrag lautet",
 	"label_scret": "label_scret",
-	"Create link": "Create link"
+	"Create link": "Create link",
+	"copy": "Copy"
 }
