@@ -52,12 +52,8 @@ http.createServer(app).listen(app.get("port"), function () {
 cron.schedule("12 1 * * *", function () {
   console.log("Cleanup proceeding...");
   const expireTime = new Date().getTime() - 8640000000;
-  nedb.remove(
-    { timestamp: { $lte: expireTime } },
-    { multi: true },
-    function (err, numDeleted) {
-      console.log("Deleted", numDeleted, "entries");
-      nedb.persistence.compactDatafile();
-    }
-  );
+  nedb.remove({ timestamp: { $lte: expireTime } }, { multi: true }, function (err, numDeleted) {
+    console.log("Deleted", numDeleted, "entries");
+    nedb.persistence.compactDatafile();
+  });
 });
