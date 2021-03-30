@@ -5,7 +5,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "body-parser": "^1.19",
-    "dirty": "^1.1.0",
+    "dirty": "^1.1.1",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "extfs": "^0.0.7",
