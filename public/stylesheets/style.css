@@ -8,7 +8,7 @@ textarea {
 }
 
 .title-number {
-  font-size:48px;
+  font-size: 48px;
   margin: 4px;
 }
 
@@ -29,17 +29,17 @@ label {
 }
 
 @font-face {
-  font-family: 'Poppins-Regular';
-  src: url('../fonts/Poppins-Regular.eot');
-  src: url('../fonts/Poppins-Regular.eot?#iefix') format("embedded-opentype"),
-  url('../fonts/Poppins-Regular.woff') format("woff"),
-  url('../fonts/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins-Regular";
+  src: url("../fonts/Poppins-Regular.eot");
+  src: url("../fonts/Poppins-Regular.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Poppins-Regular.woff") format("woff"),
+    url("../fonts/Poppins-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Poppins-Medium';
-  src: url('../fonts/Poppins-Medium.eot');
-  src: url('../fonts/Poppins-Medium.eot?#iefix') format("embedded-opentype"),
-  url('../fonts/Poppins-Medium.woff') format("woff"),
-  url('../fonts/Poppins-Medium.ttf') format('truetype');
+  font-family: "Poppins-Medium";
+  src: url("../fonts/Poppins-Medium.eot");
+  src: url("../fonts/Poppins-Medium.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Poppins-Medium.woff") format("woff"),
+    url("../fonts/Poppins-Medium.ttf") format("truetype");
 }

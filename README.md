@@ -1,7 +1,6 @@
 ![](https://travis-ci.org/wemove/read2burn.svg?branch=master)
 
-read2burn
-=========
+# read2burn
 
 A simple application for more secure password transportation. It encrypts an entry and generates a secret link. Accessing the link displays the entry and removes it at the same time.
 
@@ -9,26 +8,20 @@ The link can be sent by email and the email can be archived without compromising
 
 Please have a look at https://www.read2burn.com/
 
-
-Dependencies
-============
+# Dependencies
 
 nodejs, npm, git
 
-
-Install
-=======
+# Install
 
 Install the application.
 
     git clone https://github.com/wemove/read2burn.git
-    
+
 Load the required modules.
-    
+
     npm install
-    
-Start the application.    
-    
+
+Start the application.
+
     node app.js
-    
-    

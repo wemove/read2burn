@@ -20,6 +20,7 @@ docker run --restart=always -d -p 3300:3300 --volume=/opt/read2burn/data:/app/da
 Apache config for sub paths
 
 ---
+
     RewriteRule ^/r2b$ %{HTTPS_HOST}/r2b/ [R=permanent,L]
     <Location /r2b/>
             ProxyPass http://localhost:3300/
@@ -28,4 +29,5 @@ Apache config for sub paths
             RequestHeader set X-Forwarded-Proto "https"
             RequestHeader set X-Forwarded-Ssl on
     </Location>
+
 ---

@@ -1,0 +1,14 @@
+assembly-versioning-scheme: MajorMinorPatch
+mode: Mainline
+branches:
+  master:
+    regex: ^master
+    increment: Minor
+increment: Minor
+ignore:
+  sha: []
+merge-message-formats: {}
+major-version-bump-message: (BREAKING CHANGES?|major)(\(.*?\))?:\s?
+minor-version-bump-message: (feature|minor|feat)(\(.*?\))?:\s?
+patch-version-bump-message: (fix|patch|hotfix)(\(.*?\))?:\s?
+no-bump-message: (build|chore|ci|doc|docs|none|perf|refactor|skip|test)(\(.*?\))?:\s?
