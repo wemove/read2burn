@@ -84,13 +84,8 @@
         </form>
         <% if(url) { %>
             <label><%= __('Text available only once by this URL:') %></label>
-            <input style="width:95%" type="text" id="url" name="url" value="<%= url %>"/>
+            <input style="width:95%" type="text" id="url" name="url" value="<%= url %>" readonly/>
             <button type="submit" id="copy"><%= __('copy') %></button>
-            <script type="text/javascript">
-                const t = document.getElementById('url');
-                t.focus();
-                t.select();
-            </script>
         <% } %>
     </div>
     <div class="sixteen columns">
@@ -114,8 +109,11 @@
     $('#copy').click(function () {
         const url = document.getElementById('url');
         url.select();
-        url.setSelectionRange(0, 99999); // mobile devices
         document.execCommand('copy');
+        setTimeout(function(){
+            // mobile copying fix
+            document.execCommand('copy');
+        }, 500);
     });
     $('#secret').jqEasyCounter({
         'maxChars': 4000,
