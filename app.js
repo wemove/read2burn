@@ -23,6 +23,7 @@ app.use(express.Router());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.enable('trust proxy');
+app.disable( 'x-powered-by' )
 
 const nedb = new Datastore({filename: 'data/read2burn.db', autoload: true});
 
