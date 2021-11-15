@@ -36,7 +36,7 @@ jobs:
           eslint: true
           prettier: true
 
-      - uses: brpaz/hadolint-action@v1.3.1
+      - uses: brpaz/hadolint-action@v1.5.0
         with:
           dockerfile: ./docker/Dockerfile
 
