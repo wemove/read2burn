@@ -6,10 +6,12 @@ on:
       - "feature/*"
       - "fix/*"
       - beta
+      - main
       - master
       - release
   pull_request:
     branches:
+      - main
       - master
   workflow_dispatch:
 
