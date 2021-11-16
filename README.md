@@ -17,7 +17,7 @@ nodejs, npm, git
 
 Install the application.
 
-    `git clone https://github.com/wemove/read2burn.git`
+    `git clone https://github.com/danstis/read2burn.git`
 
 Load the required modules.
 
