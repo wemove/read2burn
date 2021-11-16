@@ -249,7 +249,6 @@ blockquote cite:before {
   content: "\2014 \0020";
 }
 blockquote cite a,
-blockquote cite a:visited,
 blockquote cite a:visited {
   color: #555;
 }
