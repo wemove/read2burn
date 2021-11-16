@@ -95,7 +95,13 @@ exports.index = function (req, res) {
   }
 };
 
+// Generate a secure random string of a given length, containing characters a-zA-Z0-9. If no length is given, return a random string of length 7.
 function uid(len) {
   len = len || 7;
-  return Math.random().toString(35).substr(2, len);
+  return crypto
+    .randomBytes(len)
+    .toString("base64")
+    .slice(0, len)
+    .replace(/\+/g, "0")
+    .replace(/\//g, "0");
 }
