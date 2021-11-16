@@ -126,10 +126,6 @@ section {
 body {
   line-height: 1;
 }
-ol,
-ul {
-  list-style: none;
-}
 blockquote,
 q {
   quotes: none;
@@ -288,6 +284,7 @@ p a:visited {
 ul,
 ol {
   margin-bottom: 20px;
+  list-style: none;
 }
 ul {
   list-style: none outside;
