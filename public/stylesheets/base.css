@@ -123,9 +123,6 @@ nav,
 section {
   display: block;
 }
-body {
-  line-height: 1;
-}
 blockquote,
 q {
   quotes: none;
@@ -148,6 +145,7 @@ body {
   background: #fff;
   font: 14px/21px "Poppins-Regular", sans-serif;
   color: #444;
+  line-height: 1;
 }
 
 /* #Typography
