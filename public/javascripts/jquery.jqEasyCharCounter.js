@@ -58,24 +58,24 @@ $.fn.extend({
 				
 				if(length >= options.maxChars) {
 					val = val.substring(0, options.maxChars); 				
-				};
+				}
 				
 				if(length > options.maxChars){
 					// keep scroll bar position
 					var originalScrollTopPosition = $this.scrollTop();
 					$this.val(val.substring(0, options.maxChars));
 					$this.scrollTop(originalScrollTopPosition);
-				};
+				}
 				
 				if(length >= options.maxCharsWarning){
 					jqEasyCounterMsg.css({"color" : options.msgWarningColor});
 				}else {
 					jqEasyCounterMsg.css({"color" : options.msgFontColor});
-				};
+				}
 				
 				jqEasyCounterMsg.html('Characters: ' + $this.val().length + "/" + options.maxChars);
                 jqEasyCounterMsg.stop().fadeTo( 'fast', 1);
-			};
+			}
         });
     }
 });
