@@ -422,6 +422,7 @@ select {
 }
 select {
   padding: 0;
+  width: 220px;
 }
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -439,9 +440,6 @@ textarea {
 legend {
   display: block;
   font-size: 14px;
-}
-select {
-  width: 220px;
 }
 input[type="checkbox"] {
   display: inline;
