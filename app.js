@@ -56,8 +56,12 @@ const schedule = String(app.get("cleanupcron"));
 cron.schedule(schedule, function () {
   console.log("Cleanup proceeding...");
   const expireTime = new Date().getTime() - app.get("expirytime"); // Expire secrets after expirytime
-  nedb.remove({ timestamp: { $lte: expireTime } }, { multi: true }, function (err, numDeleted) {
-    console.log("Deleted", numDeleted, "entries");
-    nedb.persistence.compactDatafile();
-  });
+  nedb.remove(
+    { timestamp: { $lte: expireTime } },
+    { multi: true },
+    function (err, numDeleted) {
+      console.log("Deleted", numDeleted, "entries");
+      nedb.persistence.compactDatafile();
+    }
+  );
 });
