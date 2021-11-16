@@ -16,6 +16,8 @@ const i18n = require("i18n");
 
 // default: using 'accept-language' header to guess language settings
 app.use(i18n.init);
+app.set("cleanupcron", process.env.CLEANUP_CRON || "12 0 * * *"); // Default to 00:12 every day
+app.set("expirytime", process.env.EXPIRY || 7776000000); // Default to 90 days
 app.set("port", process.env.PORT || 3300);
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
@@ -50,9 +52,10 @@ http.createServer(app).listen(app.get("port"), function () {
 });
 
 // schedule regular cleanup
-cron.schedule("12 1 * * *", function () {
+const schedule = String(app.get("cleanupcron"));
+cron.schedule(schedule, function () {
   console.log("Cleanup proceeding...");
-  const expireTime = new Date().getTime() - 8640000000;
+  const expireTime = new Date().getTime() - app.get("expirytime"); // Expire secrets after expirytime
   nedb.remove({ timestamp: { $lte: expireTime } }, { multi: true }, function (err, numDeleted) {
     console.log("Deleted", numDeleted, "entries");
     nedb.persistence.compactDatafile();

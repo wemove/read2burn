@@ -15,8 +15,9 @@ WORKDIR ${READ2BURN_HOME}
 # hadolint ignore=DL3018
 RUN apk add --no-cache tzdata
 # hadolint ignore=DL3018
-RUN apk add --no-cache git
-RUN git clone --single-branch --depth 1 https://github.com/danstis/read2burn.git ${READ2BURN_HOME}
+# RUN apk add --no-cache git
+# RUN git clone --single-branch --depth 1 https://github.com/danstis/read2burn.git ${READ2BURN_HOME}
+COPY . ${READ2BURN_HOME}
 RUN npm ci --only=production
 RUN rm -rf ${READ2BURN_HOME}/docker
 

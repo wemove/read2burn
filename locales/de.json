@@ -19,5 +19,6 @@
   "The entry:": "Der Eintrag:",
   "Do not reload! Your entry has been deleted already.": "Bitte die Seite nicht neu laden! Der Eintrag wurde gelöscht.",
   "You can access the secret message now. Please note that the message will be deleted!": "Sie können nun auf den Eintrag zugreifen. Bitte beachten Sie, dass der Eintrag dadurch gelöscht wird.",
-  "Show secret": "Show secret"
+  "Show secret": "Show secret",
+  "copy": "Kopieren"
 }
