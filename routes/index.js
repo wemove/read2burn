@@ -23,7 +23,7 @@ exports.index = function (req, res) {
       // if exists, create another key
       const password = uid(PASSWORD_KEY_LENGTH);
       const timestamp = new Date().getTime();
-      const cipherSecret = new Buffer(password).toString("binary");
+      const cipherSecret = new Buffer.from(password, "binary");
       const cipher = crypto.createCipher(CIPHER_ALGORITHM, cipherSecret);
       encrypted = cipher.update(secret, "utf8", "hex") + cipher.final("hex");
       const entry = { key, timestamp, encrypted };
@@ -46,7 +46,7 @@ exports.index = function (req, res) {
         try {
           if (doc.encrypted && req.body.show) {
             const encrypted = doc.encrypted;
-            const decipherSecret = new Buffer(password).toString("binary");
+            const decipherSecret = new Buffer.from(password, "binary");
             const decipher = crypto.createDecipher(
               CIPHER_ALGORITHM,
               decipherSecret
