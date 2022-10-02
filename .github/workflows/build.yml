@@ -98,13 +98,35 @@ jobs:
 
       - name: Login to DockerHub
         uses: docker/login-action@v1.10.0
+        if: ${{ github.actor != 'dependabot[bot]' }}
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Docker build only for dependabot PRs
         uses: docker/build-push-action@v2 # https://github.com/marketplace/actions/build-and-push-docker-images
-        if: ${{ steps.gitversion.outputs.PreReleaseTagWithDash == '' }}
+        if: ${{ github.actor == 'dependabot[bot]' }}
+        with:
+          context: ./
+          platforms: linux/amd64
+          push: false
+
+      - name: Docker build and push pre-release
+        uses: docker/build-push-action@v2 # https://github.com/marketplace/actions/build-and-push-docker-images
+        if: ${{ steps.gitversion.outputs.PreReleaseTagWithDash != '' && github.actor != 'dependabot[bot]' }}
+        with:
+          context: ./
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ github.repository }}:${{ steps.gitversion.outputs.shortsha }}
+            ${{ github.repository }}:${{ steps.gitversion.outputs.semVer }}
+            ${{ github.repository }}:${{ steps.gitversion.outputs.escapedbranchname }}
+            ${{ github.repository }}:${{ steps.gitversion.outputs.prereleaselabel }}
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v2 # https://github.com/marketplace/actions/build-and-push-docker-images
+        if: ${{ steps.gitversion.outputs.PreReleaseTagWithDash == '' && github.actor != 'dependabot[bot]' }}
         with:
           context: ./
           platforms: linux/amd64
@@ -115,16 +137,3 @@ jobs:
             ${{ github.repository }}:${{ steps.gitversion.outputs.major }}
             ${{ github.repository }}:${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
             ${{ github.repository }}:${{ steps.gitversion.outputs.semVer }}
-
-      - name: Build and push pre-release
-        uses: docker/build-push-action@v2 # https://github.com/marketplace/actions/build-and-push-docker-images
-        if: ${{ steps.gitversion.outputs.PreReleaseTagWithDash != '' }}
-        with:
-          context: ./
-          platforms: linux/amd64
-          push: true
-          tags: |
-            ${{ github.repository }}:${{ steps.gitversion.outputs.shortsha }}
-            ${{ github.repository }}:${{ steps.gitversion.outputs.semVer }}
-            ${{ github.repository }}:${{ steps.gitversion.outputs.escapedbranchname }}
-            ${{ github.repository }}:${{ steps.gitversion.outputs.prereleaselabel }}
