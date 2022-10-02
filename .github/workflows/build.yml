@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.2
         with:
           fetch-depth: 0 # Do a shallow clone for GitVersion
 
@@ -35,7 +35,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9.13
 
       - name: Check out code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.2
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master # https://github.com/marketplace/actions/sonarcloud-scan
@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.2
 
       - name: Set up Node.js
         uses: actions/setup-node@v3.5.0
@@ -77,7 +77,7 @@ jobs:
     needs: [lint, sonarcloud]
     steps:
       - name: Check out code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.2
         with:
           fetch-depth: 0
 
