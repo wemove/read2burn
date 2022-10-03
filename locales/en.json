@@ -23,5 +23,5 @@
   "The entry:": "The entry:",
   "Do not reload! Your entry has been deleted already.": "Do not reload! Your entry has been deleted already.",
   "Create new link": "Create new link",
-  "Either there is no such key or your entry has already been accessed by another one.": "Either there is no such key or your entry has already been accessed by another one."
+  "Either there is no such key or your entry has already been accessed by another one.": "Either there is no such secret or your entry has already been accessed."
 }
