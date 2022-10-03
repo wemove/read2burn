@@ -8,7 +8,8 @@ const express = require("express"),
   Umzug = require("umzug"),
   bodyParser = require("body-parser"),
   cron = require("node-cron"),
-  Datastore = require("nedb");
+  Datastore = require("nedb"),
+  version = require("./version");
 
 const app = express();
 const umzug = new Umzug();
@@ -50,6 +51,8 @@ umzug.up().then(function (migrations) {
 http.createServer(app).listen(app.get("port"), function () {
   console.log("Express server listening on port " + app.get("port"));
 });
+
+console.log("Version: " + version);
 
 // schedule regular cleanup
 const schedule = String(app.get("cleanupcron"));

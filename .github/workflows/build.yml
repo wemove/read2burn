@@ -56,7 +56,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.5.0
         with:
-          node-version: 12
+          node-version: 18
 
       # ESLint must be in `package.json`
       - name: Install Node.js dependencies
@@ -110,6 +110,8 @@ jobs:
           context: ./
           platforms: linux/amd64
           push: false
+          build-args: |
+            BUILD=${{ steps.gitversion.outputs.semVer }}
 
       - name: Docker build and push pre-release
         uses: docker/build-push-action@v3 # https://github.com/marketplace/actions/build-and-push-docker-images
@@ -118,7 +120,9 @@ jobs:
           context: ./
           platforms: linux/amd64
           push: true
+          build-args: BUILD=${{ steps.gitversion.outputs.semVer }}
           tags: |
+            ${{ github.repository }}:prerelease
             ${{ github.repository }}:${{ steps.gitversion.outputs.shortsha }}
             ${{ github.repository }}:${{ steps.gitversion.outputs.semVer }}
             ${{ github.repository }}:${{ steps.gitversion.outputs.escapedbranchname }}
@@ -131,6 +135,7 @@ jobs:
           context: ./
           platforms: linux/amd64
           push: true
+          build-args: BUILD=${{ steps.gitversion.outputs.semVer }}
           tags: |
             ${{ github.repository }}:latest
             ${{ github.repository }}:${{ steps.gitversion.outputs.shortsha }}

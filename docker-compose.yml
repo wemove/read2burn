@@ -3,8 +3,8 @@ version: "3"
 services:
   ibus:
     build: .
-    image: danstis/read2burn
-    # container_name: read2burn
+    image: danstis/read2burn:prerelease
+    container_name: read2burn
     restart: unless-stopped
     ports:
       - 127.0.0.1:3300:3300
