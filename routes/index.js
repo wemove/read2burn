@@ -4,6 +4,7 @@
 
 const crypto = require("crypto");
 const app = require("../app");
+const version = require("../version");
 
 exports.index = function (req, res) {
   try {
@@ -34,6 +35,7 @@ exports.index = function (req, res) {
           secret: secret,
           error: undefined,
           found: false,
+          version: version,
         });
         console.log("Inserted", doc.key, "with ID", doc._id);
       });
@@ -63,6 +65,7 @@ exports.index = function (req, res) {
               secret: decrypted,
               error: undefined,
               found: true,
+              version: version,
             });
           } else {
             res.render("index", {
@@ -71,6 +74,7 @@ exports.index = function (req, res) {
               error: undefined,
               found: true,
               key: p,
+              version: version,
             });
           }
         } catch (e) {
@@ -79,6 +83,7 @@ exports.index = function (req, res) {
             secret: false,
             error: ERR_NO_SUCH_ENTRY,
             found: false,
+            version: version,
           });
         }
       });
@@ -88,6 +93,7 @@ exports.index = function (req, res) {
         secret: encrypted,
         error: undefined,
         found: false,
+        version: version,
       });
     }
   } catch (err) {
