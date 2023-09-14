@@ -14,27 +14,28 @@ exports.index = function (req, res) {
 			const secretUserMessage = req.body.secretUserMessage;
 			const password = crypto.randomBytes(PASSWORD_KEY_LENGTH).toString('hex');
 			const IV = crypto.randomBytes(16); // Generate a new IV for each encryption
+			const key = crypto.randomBytes(PASSWORD_KEY_LENGTH).toString('hex')
 
 			let cipher = crypto.createCipheriv(CIPHER_ALGORITHM, Buffer.from(password, 'hex'), IV);
 			let encrypted = cipher.update(secretUserMessage, 'utf8', 'base64') + cipher.final('base64');
 
-			const entry = { password, timestamp: Date.now(), encrypted }; // Store only the password
+			const entry = { key, password, timestamp: Date.now(), encrypted }; // Store only the password
 			nedb.insert(entry, function(err, doc) {
-				url = `https://${req.get('host')}/?key=${password}${IV.toString('hex')}`; // Concatenate password and IV in the URL
+				url = `https://${req.get('host')}/?key=${key}${IV.toString('hex')}`; // Concatenate password and IV in the URL
 				res.render('index', { url: url, secretUserMessage: secretUserMessage, error: undefined, found: false });
-				console.log('Inserted with ID', doc._id);
+				console.log(`Inserted ${key} with ID ${doc._id}`);
 			});
 		} else if (req.query.key || req.body.key) {
 			let p = req.query.key;
 			if (!p) p = req.body.key;
-			const password = p.substr(0, PASSWORD_KEY_LENGTH * 2); // Hexadecimal representation
+			const key = p.substr(0, PASSWORD_KEY_LENGTH * 2); // Hexadecimal representation
 			const IV = p.substr(PASSWORD_KEY_LENGTH * 2);
 
-			nedb.findOne({ password }, function(err, doc) {
+			nedb.findOne({ key }, function(err, doc) {
 				try {
 					if (doc.encrypted && req.body.show) {
 						const encrypted = doc.encrypted;
-						let decipher = crypto.createDecipheriv(CIPHER_ALGORITHM, Buffer.from(password, 'hex'), Buffer.from(IV, 'hex'));
+						let decipher = crypto.createDecipheriv(CIPHER_ALGORITHM, Buffer.from(doc.password, 'hex'), Buffer.from(IV, 'hex'));
 						let decrypted = decipher.update(encrypted, 'base64', 'utf8') + decipher.final('utf8');
 
 						nedb.remove({ _id: doc._id }, function(err, numDeleted) {
