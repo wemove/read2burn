@@ -14,7 +14,8 @@ exports.index = function (req, res) {
 			const secretUserMessage = req.body.secretUserMessage;
 			const password = crypto.randomBytes(PASSWORD_KEY_LENGTH).toString('hex');
 			const IV = crypto.randomBytes(16); // Generate a new IV for each encryption
-			const key = crypto.randomBytes(PASSWORD_KEY_LENGTH).toString('hex')
+			const key = generateRandomKey(PASSWORD_KEY_LENGTH);
+
 
 			let cipher = crypto.createCipheriv(CIPHER_ALGORITHM, Buffer.from(password, 'hex'), IV);
 			let encrypted = cipher.update(secretUserMessage, 'utf8', 'base64') + cipher.final('base64');
@@ -56,3 +57,16 @@ exports.index = function (req, res) {
 		console.log(err);
 	}
 };
+
+function generateRandomKey(len){
+	len = len || 32
+	key = crypto.randomBytes(len).toString('hex')
+
+	app.nedb.findOne({ key }, function(err, doc) {
+		if (doc) {
+			console.log("Key already exists")
+			generateRandomKey(len)
+		}
+	});
+	return key
+}
