@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * Module dependencies.
  */
@@ -57,5 +58,4 @@ cron.schedule('12 1 * * *', function () {
         nedb.persistence.compactDatafile();
     });
 });
-
 
