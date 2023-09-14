@@ -8,7 +8,7 @@
     <!-- Basic Page Needs
   ================================================== -->
     <meta charset="utf-8">
-    <title>stille post</title>
+    <title>Read2Burn</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -51,8 +51,8 @@
 
 <div class="container">
     <div class="sixteen columns">
-        <h1 class="title">Stille POST</h1>
-        <div class="subtitle">Sicher. Lokal. Einfach</div>
+        <h1 class="title">Read2Burn</h1>
+        <div class="subtitle">Transfer secrets. Safely</div>
     </div>
     <div class="sixteen columns">
         <form action="./" method="post">
@@ -70,7 +70,7 @@
                         <p><%= __('You can access the secret message now. Please note that the message will be deleted!') %></p>
                         <input type="hidden" name="key" value="<%= key %>"/>
                         <input type="hidden" name="show" value="true"/>
-                        <button type="submit">Zeige die Nachricht</button>
+                        <button type="submit">Show Message</button>
                     <%}%>
                 <%} else {%>
                     <label for="regularTextarea"><%= __('Text (password, secret, etc.):') %></label>
@@ -89,15 +89,6 @@
             <button type="submit" id="copy"><%= __('copy') %></button>
 
             <br/>
-                  <button class="share-button whatsapp">
-                     Sende via Whatsapp
-                  </button>
-                                    <button class="share-button telegram">
-                     Sende via Telegram
-                  </button>
-                                    <button class="share-button threema">
-                     Sende via Threema
-                  </button>
 
 
         <% } %>
@@ -110,7 +101,6 @@
         <div class="sixteen columns"><h6><%= __('What is it all about?') %></h6><p><%= __('Sending secrets by email has some problems. First, the email is sent in clear text, everybody who can read the transmission can read the secret, second the email is stored in the email account of the sender and the recipient! read2burn.com enables a secure transmission by storing the secret encrypted and creating an access url that is valid only once. Therefore a manipulation by others will be recognized.') %></p></div>
         <div class="sixteen columns"><h6><%= __('Hints') %></h6><p><%= __('Never encrypt login and password together.') %><br/><%= __('Send login and password always separately.') %></p></div>
         <div class="sixteen columns"><h6><%= __('Your data is safe!') %></h6><p><%= __('All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log, no database, no way to decrypt the secret without the URL.') %></p></div>
-        <div class="sixteen columns"><h6><p> Dies ist eine OpenSource software von WeMove. Der Code wurde angepasst um Tracker zu entfernen</p></div>
     </div>
 </div><!-- container -->
 
@@ -130,32 +120,7 @@
         }, 500);
     });
 
-         // Get all share buttons
-      const shareButtons = document.querySelectorAll('.share-button');
-      // Add click event listener to each button
-      shareButtons.forEach(button => {
-         button.addEventListener('click', () => {
-            // Get the URL of the current page
-            const url = window.location.href;
-            // Get the social media platform from the button's class name
-            const platform = button.classList[1];
-            // Set the URL to share based on the social media platform
-            let shareUrl;
-            switch (platform) {
-               case 'threema':
-               shareUrl = `"threema://compose?text=<%= url %>"`;
-               break;
-               case 'telegram':
-               shareUrl = `tg://msg?text=<%= url %>`;
-               break;
-               case 'whatsapp':
-               shareUrl = `whatsapp://send?text=<%= url %>`;
-               break;
-            }
-            // Open a new window to share the URL
-            window.open(shareUrl, '_blank');
-         });
-      });
+
     $('#secretUserMessage').jqEasyCounter({
         'maxChars': 4000,
         'maxCharsWarning': 3990,
