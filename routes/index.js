@@ -1,71 +1,57 @@
-
-/*
- * GET home page.
- */
-
 const crypto = require('crypto');
 const app = require('../app');
 
 exports.index = function (req, res) {
 	try {
 		const nedb = app.nedb;
-		const CIPHER_ALGORITHM = 'aes256'
-		const ERR_NO_SUCH_ENTRY = 'ERR_NO_SUCH_ENTRY'
-		const FILE_KEY_LENGTH = 8
-		const PASSWORD_KEY_LENGTH = 12
+		const CIPHER_ALGORITHM = 'aes-256-cbc';
+		const ERR_NO_SUCH_ENTRY = 'ERR_NO_SUCH_ENTRY';
+		const PASSWORD_KEY_LENGTH = 32;
 
 		let url = "";
-		let encrypted = "";
 
-		if (req.body.secret) {
-			const secret = req.body.secret;
-			const key = uid(FILE_KEY_LENGTH);
-			// TODO: Look for key in database
-			// if exists, create another key
-			const password = uid(PASSWORD_KEY_LENGTH);
-			const timestamp = new Date().getTime();
-			const cipherSecret = new Buffer(password).toString('binary');
-			const cipher = crypto.createCipher(CIPHER_ALGORITHM, cipherSecret);
-			encrypted = cipher.update(secret, 'utf8', 'hex') + cipher.final('hex');
-			const entry = { key, timestamp, encrypted }
+		if (req.body.secretUserMessage) {
+			const secretUserMessage = req.body.secretUserMessage;
+			const password = crypto.randomBytes(PASSWORD_KEY_LENGTH).toString('hex');
+			const IV = crypto.randomBytes(16); // Generate a new IV for each encryption
+
+			let cipher = crypto.createCipheriv(CIPHER_ALGORITHM, Buffer.from(password, 'hex'), IV);
+			let encrypted = cipher.update(secretUserMessage, 'utf8', 'base64') + cipher.final('base64');
+
+			const entry = { password, timestamp: Date.now(), encrypted }; // Store only the password
 			nedb.insert(entry, function(err, doc) {
-				url = `${req.protocol}://${req.get('host')}/?key=${key + password}`;
-				res.render('index', { url: url, secret: secret, error: undefined, found: false });
-				console.log('Inserted', doc.key, 'with ID', doc._id);
+				url = `https://${req.get('host')}/?key=${password}${IV.toString('hex')}`; // Concatenate password and IV in the URL
+				res.render('index', { url: url, secretUserMessage: secretUserMessage, error: undefined, found: false });
+				console.log('Inserted with ID', doc._id);
 			});
 		} else if (req.query.key || req.body.key) {
 			let p = req.query.key;
 			if (!p) p = req.body.key;
-			const key = p.substr(0, FILE_KEY_LENGTH);
-			const password = p.substr(FILE_KEY_LENGTH, PASSWORD_KEY_LENGTH);
-			nedb.findOne({ key }, function(err, doc) {
+			const password = p.substr(0, PASSWORD_KEY_LENGTH * 2); // Hexadecimal representation
+			const IV = p.substr(PASSWORD_KEY_LENGTH * 2);
+
+			nedb.findOne({ password }, function(err, doc) {
 				try {
 					if (doc.encrypted && req.body.show) {
 						const encrypted = doc.encrypted;
-						const decipherSecret = new Buffer(password).toString('binary');
-						const decipher = crypto.createDecipher(CIPHER_ALGORITHM, decipherSecret);
-						const decrypted = decipher.update(encrypted, 'hex', 'utf8') + decipher.final('utf8');
-						nedb.remove({ key }, function(err, numDeleted) {
+						let decipher = crypto.createDecipheriv(CIPHER_ALGORITHM, Buffer.from(password, 'hex'), Buffer.from(IV, 'hex'));
+						let decrypted = decipher.update(encrypted, 'base64', 'utf8') + decipher.final('utf8');
+
+						nedb.remove({ _id: doc._id }, function(err, numDeleted) {
 							nedb.persistence.compactDatafile();
 						});
-						res.render('index', { url: url, secret: decrypted, error: undefined, found: true });
+						res.render('index', { url: url, secretUserMessage: decrypted, error: undefined, found: true });
 					} else {
-						res.render('index', { url: url, secret: false, error: undefined, found: true, key: p });
+						res.render('index', { url: url, secretUserMessage: false, error: undefined, found: true, key: p });
 					}
 				} catch (e) {
-					res.render('index', { url: url, secret: false, error: ERR_NO_SUCH_ENTRY, found: false });
+					res.render('index', { url: url, secretUserMessage: false, error: ERR_NO_SUCH_ENTRY, found: false });
 				}
 			});
 		} else {
-			res.render('index', { url: url, secret: encrypted, error: undefined, found: false });
+			res.render('index', { url: url, secretUserMessage: "", error: undefined, found: false });
 		}
 	} catch (err) {
 		console.log(err);
 	}
 };
-
-function uid(len) {
-	len = len || 7;
-	return Math.random().toString(35).substr(2, len);
-}
-
