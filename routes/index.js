@@ -1,7 +1,8 @@
 const crypto = require('crypto');
 const app = require('../app');
-
+const fs = require('fs');
 exports.index = function (req, res) {
+
 	try {
 		const nedb = app.nedb;
 		const CIPHER_ALGORITHM = 'aes-256-cbc';
@@ -12,6 +13,14 @@ exports.index = function (req, res) {
 		let url = "";
 
 		if (req.body.secretUserMessage) {
+				const json = fs.readFileSync('data/count.json', 'utf8');
+				const obj = JSON.parse(json);
+
+				obj.messages_created = obj.messages_created + 1;
+
+				const newJSON = JSON.stringify(obj);
+				fs.writeFileSync('data/count.json', newJSON);
+
 			const secretUserMessage = req.body.secretUserMessage;
 			const password = crypto.randomBytes(PASSWORD_KEY_LENGTH).toString('hex');
 			const IV = crypto.randomBytes(16); // Generate a new IV for each encryption
