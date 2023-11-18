@@ -2,17 +2,18 @@
  * Module dependencies.
  */
 const express = require('express')
-    , routes = require('./routes')
     , http = require('http')
     , path = require('path')
     , Umzug = require('umzug')
     , bodyParser = require('body-parser')
     , cron = require('node-cron')
-    , Datastore = require('nedb');
+    , Datastore = require('@seald-io/nedb')
+    , routes = require('./routes')
+    , i18n = require("i18n");
+;
 
 const app = express();
 const umzug = new Umzug();
-const i18n = require("i18n");
 
 // default: using 'accept-language' header to guess language settings
 app.use(i18n.init);
@@ -26,8 +27,8 @@ app.enable('trust proxy');
 app.disable( 'x-powered-by' )
 
 const nedb = new Datastore({filename: 'data/read2burn.db', autoload: true});
+exports.nedb = nedb
 
-module.exports.nedb = nedb;
 
 i18n.configure({
     locales: ['en', 'de'],

@@ -67,7 +67,7 @@
                         <p><em><%= __('Do not reload! Your entry has been deleted already.') %></em></p>
                     <%} else {%>
                         <p><%= __('You can access the secret message now. Please note that the message will be deleted!') %></p>
-                        <input type="hidden" name="key" value="<%= key %>"/>
+                        <input type="hidden" name="id" value="<%= id %>"/>
                         <input type="hidden" name="show" value="true"/>
                         <button type="submit"><%= __('Show secret') %></button>
                     <%}%>
