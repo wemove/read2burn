@@ -1,12 +1,10 @@
 version: '3'
 services:
   ibus:
-    image: docker-registry.wemove.com/wemove/read2burn:0.6.1
+    image: wemove/read2burn:latest
     container_name: read2burn
     restart: unless-stopped
     ports:
       - 127.0.0.1:3300:3300
     volumes:
       - ./data:/app/data
-    environment:
-#      - REL_PATH=/r2b
