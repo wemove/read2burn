@@ -1,16 +1,3 @@
-Build docker image
-
-```
-git clone https://github.com/joachimmueller/read2burn.git .
-cd docker
-docker build --no-cache -t wemove/read2burn:<VERSION> .
-
-# push to wemove docker repository
-docker login docker-registry.wemove.com
-docker tag wemove/read2burn:<VERSION> docker-registry.wemove.com/wemove/read2burn:<VERSION>
-docker push docker-registry.wemove.com/wemove/read2burn:0.2
-```
-
 Run the docker
 
 ```

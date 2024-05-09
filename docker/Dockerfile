@@ -16,7 +16,7 @@ RUN apk update \
   && apk upgrade \
   && apk add --no-cache tzdata \
   && apk add git \
-  && git clone --single-branch --depth 1 https://github.com/joachimmueller/read2burn.git ${READ2BURN_HOME} \
+  && git clone --single-branch --depth 1 https://github.com/wemove/read2burn.git ${READ2BURN_HOME} \
   && npm ci --only=production \
   && rm -rf ${READ2BURN_HOME}/docker
 
