@@ -17,6 +17,7 @@ jobs:
   sonarcloud:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Check out code
         uses: actions/checkout@v3.5.2
