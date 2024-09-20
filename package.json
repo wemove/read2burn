@@ -15,7 +15,7 @@
     "nedb": "^1.8.0",
     "node-cron": "^3.0.2",
     "rimraf": "^3.0.1",
-    "umzug": "^2.3.0"
+    "umzug": "^3.8.1"
   },
   "description": "A tool for communicating secret information.",
   "main": "app.js",
