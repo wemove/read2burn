@@ -103,7 +103,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Docker build only for dependabot PRs
-        uses: docker/build-push-action@v3 # https://github.com/marketplace/actions/build-and-push-docker-images
+        uses: docker/build-push-action@v6 # https://github.com/marketplace/actions/build-and-push-docker-images
         if: ${{ github.actor == 'dependabot[bot]' }}
         with:
           context: ./
@@ -113,7 +113,7 @@ jobs:
             BUILD=${{ steps.gitversion.outputs.semVer }}
 
       - name: Docker build and push pre-release
-        uses: docker/build-push-action@v3 # https://github.com/marketplace/actions/build-and-push-docker-images
+        uses: docker/build-push-action@v6 # https://github.com/marketplace/actions/build-and-push-docker-images
         if: ${{ steps.gitversion.outputs.PreReleaseTagWithDash != '' && github.actor != 'dependabot[bot]' }}
         with:
           context: ./
@@ -128,7 +128,7 @@ jobs:
             ${{ github.repository }}:${{ steps.gitversion.outputs.prereleaselabel }}
 
       - name: Docker build and push
-        uses: docker/build-push-action@v3 # https://github.com/marketplace/actions/build-and-push-docker-images
+        uses: docker/build-push-action@v6 # https://github.com/marketplace/actions/build-and-push-docker-images
         if: ${{ steps.gitversion.outputs.PreReleaseTagWithDash == '' && github.actor != 'dependabot[bot]' }}
         with:
           context: ./
