@@ -1,8 +1,6 @@
 name: Docker Image CI
 
 on:
-  schedule:
-    - cron: "0 10 * * *"
   push:
     branches:
       - "master"
@@ -19,38 +17,55 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Get the version tag
+        id: get_version
+        run: |
+          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "no-tag")
+          echo "version=$TAG" >> $GITHUB_ENV
+
+      - name: Get the commit ID
+        id: get_commit
+        run: echo "commit=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Inject version and commit ID into index.ejs
+        run: |
+          VERSION=${{ env.version }}
+          COMMIT=${{ env.commit }}
+          echo "<!-- Version: $VERSION, Commit ID: $COMMIT -->" >> views/index.ejs
+          grep "<!-- Version: $VERSION, Commit ID: $COMMIT -->" views/index.ejs || exit 1
+
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           # list of Docker images to use as base name for tags
           images: |
             wemove/read2burn
-          # generate Docker tags based on the following events/attributes
           tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
+            type=raw,value=latest
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha             
+            type=semver,pattern={{major}}.{{minor}}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
       - name: Login to Docker Hub
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Build and push
-        uses: docker/build-push-action@v5
+        id: push
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           file: docker/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-

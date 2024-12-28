@@ -16,3 +16,22 @@ Apache config for sub paths
             RequestHeader set X-Forwarded-Ssl on
     </Location>
 ---
+
+
+Build docker
+
+```sh
+cd ..
+docker build -t wemove/read2burn:latest -f docker/Dockerfile .
+``` 
+
+Push image to a docker registry
+
+```sh
+docker login <docker-registry>
+docker tag wemove/read2burn:latest <docker-registry or your-dockerhub-username>/read2burn:l<version>
+docker push <docker-registry or your-dockerhub-username>/read2burn:<version>
+```
+
+The official Docker image is built automatically by a GitHub Action. You can find it on Docker Hub: [wemove/read2burn](https://hub.docker.com/r/wemove/read2burn)
+
