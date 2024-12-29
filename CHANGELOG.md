@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v0.7.2] - 2024-12-29
+## [0.7.2] - 2024-12-29
 ### Added
 - Add CHANGELOG.md.
 - Add version and git commit id as HTML tag during docker build process.
@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update documentation.
 
 
-## [v0.7.1] - 2024-05-09
+## [0.7.1] - 2024-05-09
 ### Added
 - Add github action and switch to version scheme `va.b.c`.
 
@@ -66,8 +66,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/wemove/read2burn/compare/v0.7.2...HEAD
-[v0.7.2]: https://github.com/wemove/read2burn/compare/v0.7.1...v0.7.2
-[v0.7.1]: https://github.com/wemove/read2burn/compare/0.7.0...v0.7.1
+[0.7.2]: https://github.com/wemove/read2burn/compare/v0.7.1...v0.7.2
+[0.7.1]: https://github.com/wemove/read2burn/compare/0.7.0...v0.7.1
 [0.7.0]: https://github.com/wemove/read2burn/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/wemove/read2burn/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/wemove/read2burn/compare/0.5.0...0.6.0
