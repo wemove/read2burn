@@ -1,6 +1,6 @@
 {
   "name": "read2burn",
-  "version": "0.4.0",
+  "version": "0.7.2",
   "private": true,
   "dependencies": {
     "@seald-io/nedb": "^4.0.2",
