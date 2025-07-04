@@ -25,13 +25,13 @@ jobs:
           fetch-depth: 0 # Do a shallow clone for GitVersion
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v3.0.0
+        uses: gittools/actions/gitversion/setup@v3.1.1
         with:
           versionSpec: "5.x"
 
       - name: Version with GitVersion # https://github.com/marketplace/actions/use-actions
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v3.0.0
+        uses: gittools/actions/gitversion/execute@v3.1.1
 
       - name: Check out code
         uses: actions/checkout@v3.5.2
@@ -81,13 +81,13 @@ jobs:
           fetch-depth: 0
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v3.0.0
+        uses: gittools/actions/gitversion/setup@v3.1.1
         with:
           versionSpec: "5.x"
 
       - name: Version with GitVersion # https://github.com/marketplace/actions/use-actions
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v3.0.0
+        uses: gittools/actions/gitversion/execute@v3.1.1
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -154,13 +154,13 @@ jobs:
           fetch-depth: 0
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v3.0.0
+        uses: gittools/actions/gitversion/setup@v3.1.1
         with:
           versionSpec: "5.x"
 
       - name: Version with GitVersion # https://github.com/marketplace/actions/use-actions
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v3.0.0
+        uses: gittools/actions/gitversion/execute@v3.1.1
 
       - name: Bump version and push tag
         id: tag_version
