@@ -8,7 +8,7 @@ WORKDIR /tmp
 
 # hadolint ignore=DL3018
 COPY ./package* /tmp
-RUN npm install
+RUN npm install --ignore-scripts
 # hadolint ignore=DL3059
 RUN	npm version ${BUILD} --allow-same-version &&\
 	npx genversion version.js
@@ -24,7 +24,7 @@ WORKDIR ${READ2BURN_HOME}
 # hadolint ignore=DL3018
 RUN apk add --no-cache tzdata
 COPY ./package* ${READ2BURN_HOME}
-RUN npm ci --only=production
+RUN npm ci --only=production --ignore-scripts
 COPY ./ ${READ2BURN_HOME}
 COPY --from=version /tmp/version.js ${READ2BURN_HOME}
 RUN rm -rf ${READ2BURN_HOME}/docker
