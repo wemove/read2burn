@@ -20,7 +20,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Check out code
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0 # Do a shallow clone for GitVersion
 
@@ -34,7 +34,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v3.1.1
 
       - name: Check out code
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.2.2
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v5.2.0 # https://github.com/marketplace/actions/official-sonarqube-scan
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.2.2
 
       - name: Set up Node.js
         uses: actions/setup-node@v4.4.0
@@ -76,7 +76,7 @@ jobs:
     needs: [lint, sonarcloud]
     steps:
       - name: Check out code
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
 
@@ -149,7 +149,7 @@ jobs:
     if: contains(github.ref, 'main')
     steps:
       - name: Check out code
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
 
@@ -171,7 +171,7 @@ jobs:
           release_branches: main
 
       - name: Check out code
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
 
