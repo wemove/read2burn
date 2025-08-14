@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@seald-io/nedb": "^4.0.2",
-    "base-x": "^4.0.0",
+    "base-x": "^4.0.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.20.2",
     "dirty": "^1.1.3",
