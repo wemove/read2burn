@@ -14,7 +14,7 @@
 	"Never encrypt login and password together.": "Never encrypt login and password together.",
 	"Send login and password always separately.": "Send login and password always separately.",
 	"Your data is safe!": "Your data is safe!",
-	"All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log, no database, no way to decrypt the secret without the URL.": "All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log, no database, no way to decrypt the secret without the URL.",
+	"All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log and no way to decrypt the secret without the URL.": "All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log and no way to decrypt the secret without the URL.",
 	"Who made it?": "Who made it?",
 	"This service is provided by": "This service is provided by",
 	"Text available only once by this URL:": "Text available only once by this URL:",
