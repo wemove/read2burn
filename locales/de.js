@@ -13,7 +13,7 @@
 	"Never encrypt login and password together.": "Versende nie Login und Passwort zusammen.",
 	"Send login and password always separately.": "Versende diese Informationen immer separat.",
 	"Your data is safe!": "Die Daten sind sicher!",
-	"All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log, no database, no way to decrypt the secret without the URL.": "Alle Übertragungen werden verschlüsselt. Der Eintrag wird verschlüsselt gespeichert. Der Schlüssel und der Zugriffs-Link wird nicht gespeichert. Es gibt kein Protokoll, keine Datenbank und keine Möglichkeit, den Eintrag ohne den Link zu entschlüsseln.",
+	"All transactions are made encrypted. The secret is stored encrypted. The key will not be stored. There is no log and no way to decrypt the secret without the URL.": "Alle Übertragungen werden verschlüsselt. Der Eintrag wird verschlüsselt gespeichert. Der Schlüssel und der Zugriffs-Link wird nicht gespeichert. Es gibt kein Protokoll und keine Möglichkeit, den Eintrag ohne den Link zu entschlüsseln.",
 	"Who made it?": "Wer hat's gemacht?",
 	"This service is provided by": "Dieser Dienst wird bereitgestellt von",
 	"The entry:": "Der Eintrag:",
