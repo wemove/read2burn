@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.3] - 2025-08-14
+### Changed
+- Update dependencies.
+- Some content corrections in the descriptive text.
+- Enhance Docker image release workflow with manual trigger and improved tag retrieval.
+
+
 ## [0.7.2] - 2024-12-29
 ### Added
 - Add CHANGELOG.md.
