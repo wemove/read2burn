@@ -1,5 +1,3 @@
-![](https://travis-ci.org/wemove/read2burn.svg?branch=master)
-
 read2burn
 =========
 
