@@ -41,11 +41,11 @@ Build the Docker image:
 
 Run the Docker container:
 
-    docker run -d -p 3000:3000 read2burn:latest
+    docker run -d -p 3300:3300 read2burn:latest
 
-This will start the application in a Docker container and map port 3000 of the container to port 3000 on your host machine. You can access the application by navigating to
+This will start the application in a Docker container and map port 3300 of the container to port 3300 on your host machine. You can access the application by navigating to
 
-`http://localhost:3000` 
+`http://localhost:3300` 
 
 in your web browser.
 
@@ -58,7 +58,7 @@ If you prefer to use a pre-built image, you can pull the latest image from Docke
 
 Run the Docker container using the pulled image:
 
-    docker run -d -p 3000:3000 wemove/read2burn:latest
+    docker run -d -p 3300:3300 wemove/read2burn:latest
 
 For mor information and available releases, go here: https://hub.docker.com/r/wemove/read2burn
     
