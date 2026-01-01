@@ -52,6 +52,13 @@ jobs:
             type=semver,pattern={{major}},value=${{ steps.read2burn.outputs.tag }}
             type=semver,pattern={{major}}.{{minor}},value=${{ steps.read2burn.outputs.tag }}
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -63,6 +70,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          platforms: linux/amd64,linux/arm64
+
           push: ${{ github.event_name != 'pull_request' }}
           file: docker/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
