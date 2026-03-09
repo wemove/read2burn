@@ -8,38 +8,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.7.4] - 2026-01-01
+
 ### Changed
+
 - Enable multi-platform Docker image builds in CI workflows. #30
 - Update dependencies.
 
-
 ## [0.7.3] - 2025-08-14
+
 ### Changed
+
 - Update dependencies.
 - Some content corrections in the descriptive text.
 - Enhance Docker image release workflow with manual trigger and improved tag retrieval.
 
-
 ## [0.7.2] - 2024-12-29
+
 ### Added
+
 - Add CHANGELOG.md.
 - Add version and git commit id as HTML tag during docker build process.
 
 ### Changed
-- Upate several dependencies.
+
+- Update several dependencies.
 - Update documentation.
 
-
 ## [0.7.1] - 2024-05-09
+
 ### Added
+
 - Add github action and switch to version scheme `va.b.c`.
 
 ### Changed
-- Upate several dependencies.
 
+- Update several dependencies.
 
 ## [0.7.0] - 2023-11-18
+
 ### Added
+
 - Update encryption to aes-256-cbc.
 - Remove tracking code.
 - Add license file.
@@ -47,38 +55,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Better parameter validation.
 
 ### Changed
-- Upate several dependencies.
 
+- Update several dependencies.
 
 ## [0.6.1] - 2021-03-30
+
 ### Changed
+
 - Fix copying issue with mobile browsers.
 
 ## [0.6.0] - 2021-03-30
+
 ### Added
+
 - Add copy button.
 
 ### Changed
+
 - Updated jquery version.
 
-
 ## [0.5.0] - 2021-01-25
-### Changed
-- Fix loading database error during migration.
-- Solve file cincurrency issue.
 
+### Changed
+
+- Fix loading database error during migration.
+- Solve file concurrency issue.
 
 ## [0.4.0] - 2020-11-19
+
 ### Added
+
 - Replace chaos with NeDB, optimize data processing, add migration and update layout.
 
 ## [0.3.0] - 2020-02-03
+
 ### Added
+
 - Initial version.
 
-
-
-[Unreleased]: https://github.com/wemove/read2burn/compare/v0.7.2...HEAD
+[Unreleased]: https://github.com/wemove/read2burn/compare/v0.7.4...HEAD
+[0.7.4]: https://github.com/wemove/read2burn/compare/v0.7.3...v0.7.4
+[0.7.3]: https://github.com/wemove/read2burn/compare/v0.7.2...v0.7.3
 [0.7.2]: https://github.com/wemove/read2burn/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/wemove/read2burn/compare/0.7.0...v0.7.1
 [0.7.0]: https://github.com/wemove/read2burn/compare/0.6.1...0.7.0
