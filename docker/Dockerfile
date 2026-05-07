@@ -7,6 +7,8 @@ ENV READ2BURN_HOME="/app"
 
 WORKDIR ${READ2BURN_HOME}
 
+COPY . .
+
 # Run a command inside the image
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -15,8 +17,6 @@ WORKDIR ${READ2BURN_HOME}
 RUN apk update \
   && apk upgrade \
   && apk add --no-cache tzdata \
-  && apk add git \
-  && git clone --single-branch --depth 1 https://github.com/joachimmueller/read2burn.git ${READ2BURN_HOME} \
   && npm ci --only=production \
   && rm -rf ${READ2BURN_HOME}/docker
 
@@ -25,14 +25,18 @@ RUN apk update \
 
 FROM node:lts-alpine
 
-# Your contact info
-MAINTAINER J Mueller <joachim.mueller@wemove.com>
-
 ENV READ2BURN_HOME="/app"
+ENV READ2BURN_MAX_SECRET_CHARS=4000
+ENV READ2BURN_PUBLIC_URL=""
 
 WORKDIR ${READ2BURN_HOME}
 
-COPY --from=builder ${READ2BURN_HOME} .
+RUN mkdir -p "${READ2BURN_HOME}/data" \
+  && chown -R node:node "${READ2BURN_HOME}"
+
+COPY --from=builder --chown=node:node ${READ2BURN_HOME} .
+
+USER node
 
 EXPOSE 3300
 

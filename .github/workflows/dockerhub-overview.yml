@@ -1,0 +1,27 @@
+name: Docker Hub Overview Sync
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - "docker/readme.md"
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  dockerhub-description:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Update Docker Hub repository overview
+        uses: peter-evans/dockerhub-description@v5
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: wemove/read2burn
+          readme-filepath: ./docker/readme.md
