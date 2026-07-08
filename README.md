@@ -1,3 +1,73 @@
+## Domain Redirect Configuration
+
+The application supports permanent (`301`) redirects from an old hostname to a new hostname. This is useful during domain migrations or rebranding while preserving existing URLs and SEO ranking.
+
+### How it works
+
+If both environment variables below are configured, the application will redirect requests from the old host to the new host:
+
+| Environment Variable | Description                            | Example                    |
+| -------------------- | -------------------------------------- | -------------------------- |
+| `REDIRECT_FROM_HOST` | Hostname that should be redirected.    | `read2burn.old-domain.com` |
+| `REDIRECT_TO_HOST`   | Destination hostname for the redirect. | `read2burn.new-domain.com` |
+
+For example:
+
+```
+https://read2burn.old-domain.com/secret/abc123?download=true
+```
+
+will be redirected permanently (`301`) to:
+
+```
+https://read2burn.new-domain.com/secret/abc123?download=true
+```
+
+The path and query string are preserved.
+
+If either variable is missing, the redirect middleware is disabled and the application behaves normally.
+
+### Public URL
+
+The application also uses the following setting:
+
+| Environment Variable   | Description                                      |
+| ---------------------- | ------------------------------------------------ |
+| `READ2BURN_PUBLIC_URL` | Canonical public URL used when generating links. |
+
+Example:
+
+```
+READ2BURN_PUBLIC_URL=https://read2burn.new-domain.com
+```
+
+### Azure App Service
+
+The recommended way to configure these values is via App Service application settings.
+
+This repository configures them automatically during deployment using GitHub Actions and the Azure CLI.
+
+Example:
+
+```yaml
+env:
+  AZURE_RESOURCE_GROUP: ksportal
+  AZURE_WEBAPP_NAME: ks-read2burn
+
+  REDIRECT_FROM_HOST: read2burn.klarsolar.de
+  REDIRECT_TO_HOST: read2burn.eon-home.de
+  READ2BURN_PUBLIC_URL: https://read2burn.eon-home.de
+```
+
+More details in the [Deployment workflow](.github/workflows/master_ks-read2burn.yml):
+
+### DNS requirements
+
+Both the old and the new hostname must resolve to the same Azure App Service (or another component capable of serving the application).
+
+A DNS `CNAME` record alone does **not** perform an HTTP redirect. It only resolves the hostname to the same service. The application is responsible for returning the `301 Moved Permanently` response.
+
+
 read2burn
 =========
 

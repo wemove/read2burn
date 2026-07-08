@@ -9,6 +9,13 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  AZURE_RESOURCE_GROUP: ksportal
+  AZURE_WEBAPP_NAME: ks-read2burn
+  REDIRECT_FROM_HOST: read2burn.klarsolar.de
+  REDIRECT_TO_HOST: read2burn.eon-home.de
+  READ2BURN_PUBLIC_URL: https://read2burn.eon-home.de
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,6 +45,9 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     needs: build
     environment:
       name: 'Production'
@@ -51,12 +61,27 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
+      - name: 'Az CLI login'
+        uses: azure/login@532459ea530d8321f2fb9bb10d1e0bcf23869a43 #v3.0.0
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Configure App Service settings
+        run: |
+          az webapp config appsettings set \
+            --resource-group "${{ env.AZURE_RESOURCE_GROUP }}" \
+            --name "${{ env.AZURE_WEBAPP_NAME }}" \
+            --settings \
+              REDIRECT_FROM_HOST="${{ env.REDIRECT_FROM_HOST }}" \
+              REDIRECT_TO_HOST="${{ env.REDIRECT_TO_HOST }}" \
+              READ2BURN_PUBLIC_URL="${{ env.READ2BURN_PUBLIC_URL }}"
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@02a81bead70021f5284939794bcec79c271ab383 #v3.0.8
         with:
-          app-name: 'ks-read2burn'
-          slot-name: 'Production'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_82ECD60462A14626A3FF1565005C5DB0 }}
