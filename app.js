@@ -78,6 +78,19 @@ i18n.configure({
     defaultLocale: 'en'
 });
 
+const REDIRECT_FROM_HOST = process.env.REDIRECT_FROM_HOST
+const REDIRECT_TO_HOST = process.env.REDIRECT_TO_HOST
+
+if (REDIRECT_FROM_HOST && REDIRECT_TO_HOST) {
+    app.use((req, res, next) => {
+        if (req.hostname === REDIRECT_FROM_HOST) {
+        return res.redirect(301, `https://${REDIRECT_TO_HOST}${req.originalUrl}`)
+        }
+
+        next()
+    })
+}
+
 app.get('/', routes.index);
 app.post('/', routes.index);
 
