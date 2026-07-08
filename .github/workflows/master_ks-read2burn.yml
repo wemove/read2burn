@@ -12,9 +12,6 @@ on:
 env:
   AZURE_RESOURCE_GROUP: ksportal
   AZURE_WEBAPP_NAME: ks-read2burn
-  REDIRECT_FROM_HOST: read2burn.klarsolar.de
-  REDIRECT_TO_HOST: read2burn.eon-home.de
-  READ2BURN_PUBLIC_URL: https://read2burn.eon-home.de
 
 jobs:
   build:
@@ -70,6 +67,10 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Configure App Service settings
+        env:
+          REDIRECT_FROM_HOST: "read2burn.klarsolar.de"
+          REDIRECT_TO_HOST: "read2burn.eon-home.de"
+          READ2BURN_PUBLIC_URL: "https://read2burn.eon-home.de"
         run: |
           az webapp config appsettings set \
             --resource-group "${{ env.AZURE_RESOURCE_GROUP }}" \
