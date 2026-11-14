@@ -20,7 +20,7 @@
   "description": "A tool for communicating secret information.",
   "main": "app.js",
   "devDependencies": {
-    "eslint": "^9.32.0",
+    "eslint": "^9.39.1",
     "prettier": "^3.6.2"
   },
   "author": "wemove",
