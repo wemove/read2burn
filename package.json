@@ -14,7 +14,7 @@
     "i18n": "^0.15.3",
     "mv": "^2.1.1",
     "node-cron": "^4.2.1",
-    "rimraf": "^6.0.1",
+    "rimraf": "^6.1.0",
     "umzug": "^3.8.2"
   },
   "description": "A tool for communicating secret information.",
