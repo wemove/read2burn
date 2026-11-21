@@ -34,7 +34,9 @@ RUN rm -rf ${READ2BURN_HOME}/docker
 FROM node:lts-alpine
 ENV READ2BURN_HOME="/app"
 WORKDIR ${READ2BURN_HOME}
-COPY --from=builder ${READ2BURN_HOME} .
+RUN mkdir -p ${READ2BURN_HOME}/data && chown -R node:node ${READ2BURN_HOME}
+COPY --from=builder --chown=node:node ${READ2BURN_HOME} .
+USER node
 EXPOSE 3300
 VOLUME ["${READ2BURN_HOME}/data"]
 CMD ["node", "app.js"]
