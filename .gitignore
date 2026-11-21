@@ -16,3 +16,4 @@ node_modules
 generate_package_infos.js
 data
 umzug.json
+coverage

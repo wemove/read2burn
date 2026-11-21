@@ -20,6 +20,10 @@ module.exports = [
         console: 'readonly',
         Buffer: 'readonly',
         exports: 'writable',
+        fetch: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        URLSearchParams: 'readonly',
       },
     },
     linterOptions: {

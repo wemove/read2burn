@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@seald-io/nedb": "^4.1.2",
-    "base-x": "^5.0.1", 
+    "base-x": "^5.0.1",
     "bluebird": "^3.7.2",
     "dirty": "^1.1.3",
     "ejs": "^3.1.10",
@@ -24,5 +24,9 @@
     "prettier": "^3.6.2"
   },
   "author": "wemove",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "test:coverage": "mkdir -p coverage && node --test --experimental-test-coverage --test-coverage-include=app.js --test-coverage-include='lib/**' --test-coverage-include='routes/**' --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info test/*.test.js"
+  }
 }
